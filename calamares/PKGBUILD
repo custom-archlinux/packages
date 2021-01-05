@@ -1,19 +1,16 @@
-# Maintainer: Tuxi Metal <tuximetal[at]lgdweb[dog]fr>
+# Maintainer: Tuxi Metal <tuximetal[at]lgdweb[dot]fr>
 
 pkgname=calamares
-pkgver=r1.0390f4c
-_pkgver=3.2.34
+pkgver=r6.8625c91
+_pkgver=3.2.35.1
 _destname="/usr/share/calamares"
-_configDir="../../../config/"
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares/calamares/releases/download"
 license=('LGPL')
-depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=4.2.0' 'mkinitcpio-openswap'
-         'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'plasma-framework'
-         'qt5-xmlpatterns' 'squashfs-tools' 'libpwquality' 'appstream-qt')
+depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=4.2.0' 'mkinitcpio-openswap' 'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'plasma-framework' 'qt5-xmlpatterns' 'squashfs-tools' 'libpwquality' 'appstream-qt')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost')
 backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/displaymanager.conf'
@@ -24,13 +21,21 @@ source+=("$pkgname-$_pkgver.tar.gz::$url/v$_pkgver/$pkgname-$_pkgver.tar.gz")
 
 sha256sums=('SKIP')
 
+pkgver() {
+  cd "$_pkgname"
+  ( set -o pipefail
+    git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  )
+}
+
 prepare() {
 	cd ${srcdir}/calamares-${_pkgver}
 	sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' CMakeLists.txt
 
 	# change version
 	sed -i -e "s|$pkgver|$_pkgver|g" CMakeLists.txt
-	#_ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
+  
 	_ver="$_pkgver-$pkgver"
 	printf 'Version: %s-%s' "${_ver}" "${pkgrel}"
 	sed -i -e "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" CMakeLists.txt
@@ -62,6 +67,6 @@ package() {
 	make DESTDIR="$pkgdir" install
 
 	install -dm755 ${pkgdir}${_destname}
-	cp -r ${_configDir}modules/* ${pkgdir}${_destname}/modules/
-  install -Dm644 ${_configDir}settings.conf ${pkgdir}${_destname}/settings.conf
+	cp -r ${startdir}/config/modules/* ${pkgdir}${_destname}/modules/
+  install -Dm644 ${startdir}/config/settings.conf ${pkgdir}${_destname}/settings.conf
 }
