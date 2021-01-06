@@ -1,7 +1,7 @@
 # Maintainer: Tuxi Metal <tuximetal[at]lgdweb[dot]fr>
 
 pkgname=calamares
-pkgver=r6.8625c91
+pkgver=r8.d6dc824
 _pkgver=3.2.35.1
 _destname="/usr/share/calamares"
 pkgrel=1
