@@ -1,10 +1,10 @@
 # Maintainer: Tuxi Metal <tuximetal[at]lgdweb[dot]fr>
 
 pkgname=calamares
-pkgver=r8.d6dc824
+pkgver=r12.16c4371
 _pkgver=3.2.35.1
 _destname="/usr/share/calamares"
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
