@@ -1,7 +1,7 @@
 # Maintainer: Tuxi Metal <tuximetal[at]lgdweb[dot]fr>
 
 pkgname=calamares
-pkgver=r15.39761f3
+pkgver=r18.07b027c
 _pkgver=3.2.35.1
 _destname="/usr/share/calamares"
 pkgrel=1
@@ -19,7 +19,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 
 source+=("$pkgname-$_pkgver.tar.gz::$url/v$_pkgver/$pkgname-$_pkgver.tar.gz")
 
-sha256sums=('SKIP')
+sha256sums=('b36c27c1c76b7092c6e4d86e812927b410987cfbafdd3ffdf8f7256e62b4049e')
 
 pkgver() {
   cd "$_pkgname"
