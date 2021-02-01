@@ -4,7 +4,7 @@
 # Maintainer: Tuxi Metal <tuximetal[at]lgdweb[dot]fr>
 
 pkgname=customarchlinux-keyring
-pkgver=20210107
+pkgver=20210201
 pkgrel=1
 pkgdesc='Custom Arch Linux PGP keyring'
 arch=('any')
@@ -12,9 +12,8 @@ url='https://github.com/custom-archlinux'
 license=('GPL')
 install="${pkgname}.install"
 source=('Makefile' 'customarchlinux.gpg')
-sha256sums=(
-  '510fe998d687792204e2d0c2330e807c5581130deb64b391af2da4d19aa8659d'
-  '014e7dc6bd554aa372d1d9c1a532b2bcfff6c058ed8c0a946160717563accc10')
+sha256sums=('510fe998d687792204e2d0c2330e807c5581130deb64b391af2da4d19aa8659d'
+            '6996da270c2a107afb1b74b6a60c915cabef00d78ed0b6135cd657751c91a73d')
 
 package() {
 	cd "${srcdir}"
