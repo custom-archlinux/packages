@@ -35,7 +35,7 @@ buildPackage() {
   sleep .5
 
   printMessage "Build package ${packageToBuild}"
-  makepkg --sign --clean --force
+  makepkg --sign --syncdeps --rmdeps --clean --force
 
   printMessage "Current directory: $(pwd) in packageBuild function"
 }
